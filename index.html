@@ -2,69 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>MindAR Simple Demo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindAR Minimal Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- A-Frame (3D scene के लिए) -->
+  <!-- A-Frame -->
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-
   <!-- MindAR + A-Frame adapter -->
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
 
-  <!-- A-Frame + MindAR scene -->
   <a-scene
     mindar-image="imageTargetSrc: ./card.mind;"
     vr-mode-ui="enabled: false"
-    device-orientation-permission-ui="enabled: false"
-    embedded
-    color-space="sRGB"
-    renderer="colorManagement: true; physicallyCorrectLights: true">
+    device-orientation-permission-ui="enabled: false">
 
-    <!-- assets: यहाँ हम target image preload कर रहे हैं -->
-    <a-assets>
-      <img id="card-image" src="card.png">
-    </a-assets>
-
-    <!-- fixed camera (MindAR खुद कैमरा संभालता है) -->
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-    <!-- यह entity सिर्फ तब दिखाई देगी जब target image detect होगी -->
+    <!-- जब poster detect होगा, तब ये नीला rectangle दिखाई देगा -->
     <a-entity mindar-image-target="targetIndex: 0">
-
-      <!-- Poster image को ही transparent plane पर दिखा दें -->
       <a-plane
-        src="#card-image"
+        color="blue"
+        opacity="0.6"
         position="0 0 0"
-        width="1"
         height="1"
-        rotation="0 0 0"
-        material="transparent: true; opacity: 0.7">
+        width="1"
+        rotation="0 0 0">
       </a-plane>
-
-      <!-- ऊपर floating text दिखाएँ -->
-      <a-text
-        value="AR ACTIVE!"
-        position="0 0.6 0.1"
-        align="center"
-        color="#00ff88"
-        width="2">
-      </a-text>
-
-      <!-- कोई simple 3D box भी दिखा सकते हैं -->
-      <a-box
-        position="0 -0.3 0.1"
-        depth="0.2"
-        height="0.2"
-        width="0.2"
-        color="#ff0066">
-      </a-box>
-
     </a-entity>
-
-    <!-- थोड़ा ambient light -->
-    <a-light type="ambient" intensity="0.9" color="#ffffff"></a-light>
 
   </a-scene>
 </body>
