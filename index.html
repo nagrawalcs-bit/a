@@ -12,112 +12,124 @@
 
   <style>
     body { margin: 0; overflow: hidden; }
-    /* tap काम करने के लिए सिर्फ छोटा JS नीचे है */
   </style>
 </head>
 
 <body>
-
   <a-scene
     mindar-image="imageTargetSrc: ./card.mind; showStats: false;"
     color-space="sRGB"
     renderer="colorManagement: true; physicallyCorrectLights: true"
     vr-mode-ui="enabled: false"
-    device-orientation-permission-ui="enabled: false">
+    device-orientation-permission-ui="enabled: false"
+    cursor="rayOrigin: mouse"
+    raycaster="objects: .clickable">
 
-    <!-- assets : yahi par sab preload ho raha hai -->
     <a-assets>
-      <!-- target poster image -->
+      <!-- sirf tracking ke liye poster image (screen par direct nahi dikhate) -->
       <img id="poster" src="./card.png">
-
-      <!-- aapka 3D model -->
+      <!-- aapka 3D brain model -->
       <a-asset-item id="brainModel" src="./brain.glb"></a-asset-item>
-
-      <!-- font for crisp text -->
+      <!-- text ke liye font -->
       <a-asset-item id="robotoFont" src="https://cdn.aframe.io/fonts/Roboto-msdf.json"></a-asset-item>
     </a-assets>
 
-    <!-- camera -->
+    <!-- camera MindAR handle karega -->
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-    <!-- sab AR content yahin bandha hai -->
+    <!-- AR content: sirf frame + text + 3D + button -->
     <a-entity mindar-image-target="targetIndex: 0">
 
-      <!-- Poster ko thoda translucent dikhana -->
+      <!-- B.Sc. area ke aas-paas glowing frame (poster ko cover nahi karta, sirf highlight) -->
       <a-plane
-        src="#poster"
-        position="0 0 0"
-        height="1.1"
-        width="0.75"
-        material="opacity: 0.8">
+        position="0 0.55 0.05"
+        height="0.35"
+        width="0.9"
+        color="#001b3d"
+        opacity="0.55">
       </a-plane>
 
-      <!-- Upar animated heading (AR shuru wali line change ki) -->
+      <a-plane
+        position="0 0.55 0.06"
+        height="0.38"
+        width="0.95"
+        color="#00ffe0"
+        opacity="0.25"
+        animation="property: scale; from: 1 1 1; to: 1.05 1.05 1.05; dur: 1200; dir: alternate; loop: true; easing: easeInOutSine">
+      </a-plane>
+
+      <!-- animated “B.Sc. Computer Science” heading -->
       <a-text
-        id="headingText"
-        value="B.Sc. Computer Science AR Demo"
-        position="0 0.65 0.15"
+        value="B.Sc. Computer Science"
+        position="0 0.62 0.08"
         align="center"
-        color="#00ff88"
-        width="2.4"
+        color="#ffffff"
+        width="2.2"
         font="#robotoFont"
-        animation="property: position; from: 0 0.58 0.15; to: 0 0.72 0.15; dur: 1500; dir: alternate; loop: true; easing: easeInOutSine">
+        shader="msdf"
+        animation="property: position; from: 0 0.58 0.08; to: 0 0.66 0.08; dur: 1500; dir: alternate; loop: true; easing: easeInOutSine">
       </a-text>
 
-      <!-- Center me 3D brain model rotate hota hua -->
+      <!-- beech me 3D brain hilta-ghoomta -->
       <a-gltf-model
         id="brainObject"
         src="#brainModel"
-        position="0 0.1 0.18"
+        position="0 0.1 0.12"
         rotation="0 0 0"
-        scale="0.4 0.4 0.4"
-        animation="property: rotation; to: 0 360 0; dur: 6000; loop: true; easing: linear">
+        scale="0.5 0.5 0.5"
+        animation__rot="property: rotation; to: 0 360 0; dur: 6000; loop: true; easing: linear"
+        animation__float="property: position; from: 0 0.02 0.12; to: 0 0.18 0.12; dur: 1800; dir: alternate; loop: true; easing: easeInOutSine">
       </a-gltf-model>
 
-      <!-- Niche tappable red button -->
+      <!-- chhota info text -->
+      <a-text
+        value="AI + AR se Seekho Computer Science!"
+        position="0 -0.1 0.1"
+        align="center"
+        color="#ffffff"
+        width="2"
+        font="#robotoFont"
+        shader="msdf">
+      </a-text>
+
+      <!-- niche slim tappable button -->
       <a-plane
         id="ctaButton"
         color="#ff0066"
-        position="0 -0.6 0.18"
-        height="0.22"
-        width="1.2"
-        radius="0.06"
+        position="0 -0.45 0.1"
+        height="0.14"
+        width="1.3"
+        radius="0.05"
         class="clickable"
         animation="property: scale; from: 1 1 1; to: 1.08 1.08 1.08; dur: 900; dir: alternate; loop: true; easing: easeInOutSine">
       </a-plane>
 
       <a-text
-        value="Tap to see Course Details"
-        position="0 -0.6 0.19"
+        value="Tap for Admission Details"
+        position="0 -0.45 0.11"
         align="center"
         color="#ffffff"
-        width="2.2"
-        font="#robotoFont">
+        width="2"
+        font="#robotoFont"
+        shader="msdf">
       </a-text>
 
     </a-entity>
 
-    <!-- ambient light -->
     <a-light type="ambient" intensity="1.0" color="#ffffff"></a-light>
-
   </a-scene>
 
-  <!-- Tap event : button par tap karte hi naya tab khulega -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       var sceneEl = document.querySelector("a-scene");
-
       sceneEl.addEventListener("loaded", function () {
         var button = document.querySelector("#ctaButton");
-
         button.addEventListener("click", function () {
-          // Yahan apna actual course link daalo
-          var url = "https://example.com/bsc-computer-science-course-details";
+          var url = "https://www.svimi.org/";
           window.open(url, "_blank");
         });
       });
     });
   </script>
-
 </body>
 </html>
