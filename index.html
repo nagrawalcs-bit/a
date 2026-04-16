@@ -19,16 +19,55 @@
 
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-    <a-entity mindar-image-target="targetIndex: 0">
-      <a-plane
-        color="blue"
-        opacity="0.6"
-        position="0 0 0"
-        height="1"
-        width="1"
-        rotation="0 0 0">
-      </a-plane>
-    </a-entity>
+   <a-entity mindar-image-target="targetIndex: 0">
+
+  <!-- Poster को हल्का dark करने के लिए transparent layer -->
+  <a-plane
+    color="#000000"
+    opacity="0.25"
+    position="0 0 0"
+    height="1"
+    width="1">
+  </a-plane>
+
+  <!-- ऊपर animated heading -->
+  <a-text
+    value="Welcome to B.Sc. CS!"
+    position="0 0.55 0.05"
+    align="center"
+    color="#00ff88"
+    width="2"
+    animation="property: position; from: 0 0.45 0.05; to: 0 0.65 0.05; dur: 1500; dir: alternate; loop: true; easing: easeInOutSine">
+  </a-text>
+
+  <!-- बीच में छोटा info text -->
+  <a-text
+    value="Scan kiya aur AR shuru!"
+    position="0 0.1 0.05"
+    align="center"
+    color="#ffffff"
+    width="1.8">
+  </a-text>
+
+  <!-- नीचे pulsating call-to-action box -->
+  <a-plane
+    color="#ff0066"
+    position="0 -0.45 0.05"
+    height="0.22"
+    width="0.9"
+    radius="0.05"
+    animation="property: scale; from: 1 1 1; to: 1.08 1.08 1.08; dur: 900; dir: alternate; loop: true; easing: easeInOutSine">
+  </a-plane>
+
+  <a-text
+    value="Tap to know more"
+    position="0 -0.45 0.06"
+    align="center"
+    color="#ffffff"
+    width="1.5">
+  </a-text>
+
+</a-entity>
 
   </a-scene>
 </body>
